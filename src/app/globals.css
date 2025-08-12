@@ -123,11 +123,32 @@
   padding-left: 1rem; 
   padding-right: 1rem; 
 }
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -20px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 10px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  /* background: grey; */
+  margin-bottom: 15px;
+}
+
+
 @theme {
   --font-quicksand: var(--quicksand);
   --font-dm-sans: var(--dm-sans);
   --color-myprimary:#7BAE7F;
   --color-mysecondary:#FFB783;
+  --color-mydarksecondary:#D28F5B;
   --color-mylightprimary: #8FBC92;
 }
 
