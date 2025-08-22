@@ -13,10 +13,29 @@ function TopBar() {
     const [checked, setChecked] = useState<boolean>(false);
     const [selected, setSelected] = useState<string[]>([])
     const handleChange = (id: string, checked: boolean) => {
-    setSelected((prev) =>
-      checked ? [...prev, id] : prev.filter((item) => item !== id)
-    )
-  }
+        setSelected((prev) =>
+            checked ? [...prev, id] : prev.filter((item) => item !== id)
+        )
+    }
+    const regions = [
+        { id: "italian", label: "Italian" },
+        { id: "", label: "Vegetarian" },
+        { id: "gluten-free", label: "Gluten-Free" },
+        { id: "keto", label: "Keto" },
+        { id: "mexican", label: "Mexican" },
+        { id: "american", label: "American" },
+        { id: "chinese", label: "Chinese" },
+        { id: "japanese", label: "Japanese" },
+        { id: "indian", label: "Indian" },
+        { id: "mediterranean", label: "Mediterranean" },
+        { id: "turkish", label: "Turkish" },
+        { id: "french", label: "French" },
+        { id: "spanish", label: "Spanish" },
+        { id: "middle-eastern", label: "Middle Eastern" },
+        { id: "thai", label: "Thai" },
+        { id: "korean", label: "Korean" }
+    ];
+
     return (
         <div className="py-4 px-4 sticky top-0 z-10 bg-white">
             <form className="bg-gray-100 rounded-xl border-0 focus:outline-none h-10 flex items-center pl-2.5 px-0">
@@ -31,20 +50,22 @@ function TopBar() {
             </form>
             {/* Filters */}
             {isFormActive &&
-                (<div className="bg-white pt-10 h-[70vh]">
+                (<div className="bg-white pt-10 min-h-[70vh] h-auto">
                     <div className="flex flex-col md:flex-row items-center justify-around">
                         <div className="flex flex-col items-start space-y-3">
                             <TypographyH4 className="font-normal font-dm-sans">
                                 Region
                             </TypographyH4>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox
-                                    id="Italian"
-                                    checked={checked}
-                                    onCheckedChange={(checked) => handleChange("Italian", Boolean(checked))}
-                                />
-                                <Label htmlFor="cheese">Italian</Label>
-                            </div>
+                            {regions.map((region) => (
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox
+                                        id="Italian"
+                                        checked={selected.includes(region.id)}
+                                        onCheckedChange={(checked) => handleChange(region.id, Boolean(checked))}
+                                    />
+                                    <Label htmlFor="cheese">{region.label}</Label>
+                                </div>
+                            ))}
                         </div>
                         <div>
                             <TypographyH4>
