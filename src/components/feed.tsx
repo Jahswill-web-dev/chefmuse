@@ -5,6 +5,8 @@ import Image from "next/image";
 import Masonry from "react-masonry-css";
 import { TypographyH2 } from "./typography/typography";
 import { Button } from "./ui/button";
+import { truncate } from "@/lib/utils";
+import TopBar from "./topbar";
 
 export type Meal = {
     idMeal: string
@@ -66,36 +68,72 @@ export type mealsResponse = {
     meals: Meal[]
 }
 
+// Pexels API response type
+
+export type photo = {
+    id: number;
+    width: number;
+    height: number;
+    url: string;
+    photographer: string;
+    photographer_url: string;
+    photographer_id: number;
+    avg_color: string;
+    src: {
+        original: string;
+        large2x: string;
+        large: string;
+        medium: string;
+        small: string;
+        portrait: string;
+        landscape: string;
+        tiny: string;
+    };
+    alt: string;
+}
+
+export type pexelsResponse = {
+    total_results: number;
+    page: number,
+    per_page: number,
+    photos: photo[]
+}
+
+
 
 
 
 async function getRecipes() {
-    const res = await axios.get<mealsResponse>("/api/recipes");
+    const res = await axios.get<pexelsResponse>("/api/recipes");
     return res.data;
 }
 const breakpointColumnsObj = {
     default: 5,
-    1100: 4,
+    1289: 4,
     700: 3,
     500: 2
 };
 
-function GalleryGrid({ data }: { data: Meal[] }) {
+function GalleryGrid({ data }: { data: photo[] }) {
     return (
         <div className="container relative">
-            <TypographyH2 className="text-mydarksecondary p-10 text-center">Access and Store Thousands of Recipes Beautifully</TypographyH2>
             <Masonry breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column">
                 {data.map((object, index) => (
-                    <div key={index}>
-                        <Image src={object.strMealThumb}
-                            className="rounded-lg"
-                            width={300}
-                            height={200}
-                            alt={object.strMeal} />
-                        {/* <p>hello</p> */}
-                    </div>
+                    object.url && (
+                        <div key={index}>
+                            {object.url ? (<Image src={object.src.medium}
+                                className="rounded-[6px]"
+                                width={300}
+                                height={200}
+                                alt={object.alt} />) : (<div className="w-[300px] h-[200px] bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+                                    No image
+                                </div>)}
+                            <div className=" h-8 py-1 px-2 font-dm-sans font-bold text-sm text-gray-500">
+                                <p className="">{truncate(object.alt, 30)}</p>
+                            </div>
+                        </div>)
                 ))}
             </Masonry>
 
@@ -105,7 +143,7 @@ function GalleryGrid({ data }: { data: Meal[] }) {
 
 
 export default function Feed() {
-    const { data, isLoading, error } = useQuery<mealsResponse>({
+    const { data, isLoading, error } = useQuery<pexelsResponse>({
         queryKey: ["recipes"],
         queryFn: getRecipes,
     });
@@ -114,6 +152,11 @@ export default function Feed() {
 
     if (isLoading) return <p>Loading recipes...</p>
     if (error || !data) return <p>Failed to load recipes</p>;
-    return <GalleryGrid data={data.meals} />
+    return (
+        <div>
+            <TopBar/>
+            <GalleryGrid data={data.photos} />
+        </div>
+    )
 
 }
