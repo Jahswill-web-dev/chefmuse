@@ -7,6 +7,7 @@ import { TypographyH2 } from "./typography/typography";
 import { Button } from "./ui/button";
 import { truncate } from "@/lib/utils";
 import TopBar from "./topbar";
+import SideBar from "./sidebar";
 
 export type Meal = {
     idMeal: string
@@ -154,8 +155,15 @@ export default function Feed() {
     if (error || !data) return <p>Failed to load recipes</p>;
     return (
         <div>
-            <TopBar/>
-            <GalleryGrid data={data.photos} />
+            <div className="flex">
+                <div>
+                    <SideBar />
+                </div>
+                <div className="ml-[62px]">
+                    <TopBar />
+                    <GalleryGrid data={data.photos} />
+                </div>
+            </div>
         </div>
     )
 
