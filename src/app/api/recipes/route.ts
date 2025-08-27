@@ -6,7 +6,7 @@ export async function GET() {
     const res = await axios.get(
       // `https://api.spoonacular.com/recipes/random?number=12&apiKey=${process.env.SPOONACULAR_KEY}`
       // `https://www.themealdb.com/api/json/v1/1/search.php?s=`,
-      `https://api.pexels.com/v1/search?query=food&per_page=20&page=1`, 
+      `https://api.pexels.com/v1/search?query=koreanfood&per_page=30&page=1`, 
       {
       headers: {
         Authorization: process.env.PEXELS_KEY || ''
