@@ -275,20 +275,30 @@ function GalleryGrid({ data }: { data: photo[] }) {
     const recipeColumns = distributeRecipes();
 
     return (
-        <div className={`grid gap-4 ${
-            columns === 1 ? 'grid-cols-1' :
+        <div className={`p-2 grid gap-4 ${columns === 1 ? 'grid-cols-1' :
             columns === 2 ? 'grid-cols-2' :
-            columns === 3 ? 'grid-cols-3' : 'grid-cols-4'
+                columns === 3 ? 'grid-cols-3' : 'grid-cols-4'
             }`}>
             {recipeColumns.map((column, columnIndex) => (
-                <div key={columnIndex} className="space-y-4">
-                    {data.map((recipe) => (
+                <div key={columnIndex} className="space-y-4 ">
+                    {/*column*/}   {data.map((recipe) => (
                         <Link key={recipe.id} href="/" className="block group">
                             <div className="relative overflow-hidden rounded-2xl group cursor-pointer">
+
+                                <Button size="lg" className="hidden group-hover:block absolute z-10 right-2 top-2 rounded-md text-lg bg-mydarksecondary cursor-pointer
+                                hover:bg-mydarkprimary text-white font-dm-sans font-medium hover:scale-105 px-3">
+                                    Save
+                                </Button>
+                                {/* Saved state */}
+                                <Button size="lg" className="hidden absolute z-10 right-2 top-2 rounded-md text-lg bg-myprimary cursor-pointer
+                                hover:bg-myprimary text-white font-dm-sans font-medium hover:scale-105 px-3">
+                                    Saved
+                                </Button>
+
                                 <img
-                                    src={recipe.src.medium}
+                                    src={recipe.src.large2x}
                                     alt={recipe.alt}
-                                    className="w-full object-cover group-hover:brightness-90 transition-all duration-300"
+                                    className="w-full object-cover group-hover:brightness-70 transition-all duration-300"
                                     style={{
                                         height: `${Math.floor(Math.random() * 150) + 200}px`
                                     }}

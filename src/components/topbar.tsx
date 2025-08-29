@@ -52,7 +52,7 @@ const dietaryPreferences = [
 ];
 
     return (
-        <div className="py-4 px-4 sticky top-0 z-10 bg-white">
+        <div className="py-4 px-4 sticky top-0 z-20 bg-white">
             <form className="bg-gray-100 rounded-xl border-0 focus:outline-none h-10 flex items-center pl-2.5 px-0">
                 <Search className="text-gray-400 w-auto" size={25} />
                 <Input
