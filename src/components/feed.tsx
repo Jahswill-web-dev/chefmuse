@@ -282,7 +282,7 @@ function GalleryGrid({ data }: { data: photo[] }) {
             {recipeColumns.map((column, columnIndex) => (
                 <div key={columnIndex} className="space-y-4 ">
                     {/*column*/}   {data.map((recipe) => (
-                        <Link key={recipe.id} href="/" className="block group">
+                        <Link key={recipe.id} href={`/${recipe.id}`} className="block group">
                             <div className="relative overflow-hidden rounded-2xl group cursor-pointer">
 
                                 <Button size="lg" className="hidden group-hover:block absolute z-10 right-2 top-2 rounded-md text-lg bg-mydarksecondary cursor-pointer
